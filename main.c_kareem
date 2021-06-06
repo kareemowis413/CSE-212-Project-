@@ -1,7 +1,18 @@
 int main() {
-//TODO call the GPIO Initialization function.
-//TODO call the LCD Initialization function.
+        //call the GPIO Initialization function.
+initialize();
+        //call the LCD Initialization function.
+initalizeLCD();
+
+while(1) {
+GPIO_PORTF_DATA_R &= ~0x02;
+dist = 0;     //initiate the distance to be calculated variable.
+
+printOnLCD(Start0, 1);
+printOnLCD(Start1, 2);
+}
+
 
 //Dummy_data func.
-//LCD print func.
+//LCD print func. Done
 }
