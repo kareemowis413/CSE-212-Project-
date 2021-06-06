@@ -1,3 +1,4 @@
+//delay function takes an
 void delay10Ns(int time)
 {
     int i;
