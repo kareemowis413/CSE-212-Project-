@@ -9,7 +9,7 @@ void delay10Ns(int time)
 
 
 /*That function takes a character parameter, RS pin of LCD takes value 0 to perform LCD commands, and it is the same value of (connected to) pin 5 at port A
-  , char D0toD7 is the data pins for LCD and it is the same values of (connected to) pin 5 at port A
+  , char D0toD7 is the data pins for LCD and it is the same values of (connected to) pin 5 at port A*/
   
 void LCD(char D0toD7)
     {
