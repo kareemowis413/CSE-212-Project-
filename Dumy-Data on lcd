@@ -30,14 +30,14 @@ void dummy_Data_Generator()
 	int i;
 	while (long2 < (30.064540+0.000200))
 	{
-	long2 += 0.000005;
+	long2 += 0.000005; //increment by 0.56m
 	}
 	while (lat2 < (31.278079+0.000400))
 	{
-  lat2 += 0.000005 ;
+  lat2 += 0.000005 ; //increment by 0.55m
 	}
 	long2 += 0.000005;
-  lat2 += 0.000005 ;
+  lat2 += 0.000005 ; //increment by 0.55m
 	
       Total_distance(long2,lat2);// put the values
 }
