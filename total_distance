@@ -5,10 +5,11 @@ void Total_distance(long double long2,long double lat2 ){
   volatile double change = pow(sin(dlat / 2), 2) + cos(lat1) * cos(lat2) * pow(sin(dlong / 2), 2);
   
   change = 2 * asin(sqrt(change));
-  
-  dist = dist + change;
-  long1 = long2 ;
-  lat1 =  lat2 ;
+  if (change >= 0.5){
+    dist = dist + change;
+    long1 = long2 ;      // renewing the longitude
+    lat1 =  lat2 ;       // renewing the latitude
+    }
 
 
 }
