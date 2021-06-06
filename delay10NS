@@ -1,0 +1,6 @@
+void delay10Ns(int time)
+{
+    int i;
+    for(i = 0; i < time; i++) 
+    {}
+}
