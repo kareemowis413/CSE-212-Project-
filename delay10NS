@@ -1,4 +1,4 @@
-//delay function takes an integer as a parameter and produce a time delay equal to this integer multipled by 10 nano seconds
+//delay function takes an integer as a parameter and produce a time delay equal to this integer multipled by 10 nanoseconds
 
 void delay10Ns(int time)
 {
@@ -8,35 +8,28 @@ void delay10Ns(int time)
 }
 
 
-/*That function takes a character parameter, RS pin of LCD takes value 0 to perform LCD commands, and it is the same value of (connected to) pin 5 at port A
-  , char D0toD7 is the data pins for LCD and it is the same values of (connected to) pin 5 at port A*/
+/*That function takes two characters parameters, char rs takes two values 0 to perform LCD commands and it is the same value of (connected to) pin 5 at port A, RS pin of LCD takes value 1 to perform LCD DATA write
+  , char D0toD7 is the data pins for LCD and it is the same values of (connected to) pin 5 at port A
   
 void LCD(char rs, char D0toD7)
     {
-       delay10Ns(600);
-        GPIO_PORTB_DATA_R = D0toD7;
         delay10Ns(600);
-        GPIO_PORTA_DATA_R &= ~0x20;
-        delay10Ns(600);
-        GPIO_PORTA_DATA_R |= 0x80;
-        delay10Ns(600);
-        GPIO_PORTA_DATA_R &= ~0x80;
-        delay10Ns(600);
+        GPIO_PORTB_DATA_R = D0toD7;         sets Port B pins to D0toD7 values
+        delay10Ns(600);                     //6 millisecond
+        if (!(rs))                          //LCD Command
+        {GPIO_PORTA_DATA_R &= ~0x20;}       //check if rs value is 0
+        else                                //LCD Data
+        {
+        GPIO_PORTA_DATA_R |= 0x20;         //check if rs value is 0
+        }
+        delay10Ns(600);                    //6 millisecond
+        GPIO_PORTA_DATA_R |= 0x80;         //set enable to logic 1
+        delay10Ns(600);                    //6 millisecond
+        GPIO_PORTA_DATA_R &= ~0x80;        //set enable to logic 0
+        delay10Ns(600);                    //6 millisecond
     }
 
 
-/*That function takes a character parameter, RS pin of LCD takes value 1 to perform LCD DATA write, and it is the same value of (connected to) pin 5 at port A
-  , char D0toD7 is the data pins for LCD and it is the same values of (connected to) pin 5 at port A*/
-  
-void LCD(char rs, char D0toD7)
-    {
-       delay10Ns(600);
-        GPIO_PORTB_DATA_R = D0toD7;
-        delay10Ns(600);
-        GPIO_PORTA_DATA_R |= 0x20;
-        delay10Ns(600);
-        GPIO_PORTA_DATA_R |= 0x80;
-        delay10Ns(600);
-        GPIO_PORTA_DATA_R &= ~0x80;
-        delay10Ns(600);
-    }
+
+
+
