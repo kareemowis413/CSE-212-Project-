@@ -1,5 +1,11 @@
+/*
+this file contains three functions
+1- printOnLCD() for printing on lcd  
+2- led_on() to turn on led when exceed 100m
+3- dummy_Data_Generator() to generate dummy data to print on lcd
+*/
 
-
+// print the data on lcd
 void printOnLCD(char ch[], int position){
 int i;
 if (position == 1) //LCD clear and line 1
@@ -12,7 +18,7 @@ if (position == 1) //LCD clear and line 1
   LCD(0, 0xC0); // begin from second line                
   }
   
-for( i = 0;ch[i]!='\0'; i++) LCD(1 ,ch[i]); // print the data on lcd
+for( i = 0;ch[i]!='\0'; i++) LCD(1 ,ch[i]); 
 }
 
 // led on if exceed 100m
@@ -28,17 +34,16 @@ long double lat2 = 31.278079;
 // generate dummy data to print on lcd
 void dummy_Data_Generator()
 {
-	int i;
 	while (long2 < (30.064540+0.000200))
 	{
 	long2 += 0.000005; //increment by 0.56m
 	}
 	while (lat2 < (31.278079+0.000400))
 	{
-  lat2 += 0.000005 ; //increment by 0.55m
+  	lat2 += 0.000005 ; //increment by 0.55m
 	}
 	long2 += 0.000005; //increment by 0.56m
-  lat2 += 0.000005 ; //increment by 0.55m
+  	lat2 += 0.000005 ; //increment by 0.55m
 	
-      Total_distance(long2,lat2);// put the values
+  Total_distance(long2,lat2);// put the values
 }
