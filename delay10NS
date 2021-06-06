@@ -1,4 +1,4 @@
-//delay function takes an
+//delay function takes an integer as a parameter and produce a time delay equal to this integer multipled by 10 nano seconds
 void delay10Ns(int time)
 {
     int i;
