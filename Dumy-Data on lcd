@@ -1,0 +1,15 @@
+void printOnLCD(char ch[], int position)
+{
+int i;
+if (position == 1)              //LCD clear and line 1
+  {
+  LCD(0, 0x01);
+  LCD(0, 0x02);
+  }
+  else if (position == 2)        //LCD Data to line 2
+  {
+  LCD(0, 0xC0);                 //position takes value beginning of 1 for first line , 2 for beginning of second line, x for for current position
+  }
+  
+for( i = 0;ch[i]!='\0'; i++) LCD(1 ,ch[i]);
+}
