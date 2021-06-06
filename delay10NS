@@ -1,3 +1,9 @@
+/*
+1-delay function
+2-function prints and perform orders to lcd
+3-LCD Commands to initalize LCD
+*/
+
 //delay function takes an integer as a parameter and produce a time delay equal to this integer multipled by 10 nanoseconds
 
 void delay10Ns(int time)
@@ -8,7 +14,7 @@ void delay10Ns(int time)
 }
 
 
-/*That function takes two characters parameters, char rs takes two values 0 to perform LCD commands and it is the same value of (connected to) pin 5 at port A, RS pin of LCD takes value 1 to perform LCD DATA write
+/*That function prints and perform orders to lcd as it takes two characters parameters, char rs takes two values 0 to perform LCD commands and it is the same value of (connected to) pin 5 at port A, RS pin of LCD takes value 1 to perform LCD DATA write
   , char D0toD7 is the data pins for LCD and it is the same values of (connected to) pin 5 at port A
   
 void LCD(char rs, char D0toD7)
@@ -30,6 +36,12 @@ void LCD(char rs, char D0toD7)
     }
 
 
-
-
-
+/*LCD Commands to initalize LCD*/
+void initalizeLCD()
+  {
+  LCD(0,  0x3C);                                //Function set
+  LCD(0,  0x01);                                //Clear
+  LCD(0,  0x02);                                //Return Home
+  LCD(0,  0x0C);                                //0x0E//Display ON/control OFF
+  }
+  
