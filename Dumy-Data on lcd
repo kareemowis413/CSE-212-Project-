@@ -17,7 +17,7 @@ for( i = 0;ch[i]!='\0'; i++) LCD(1 ,ch[i]); // print the data on lcd
 // led on if exceed 100m
 void led_on(long double dist){
 if (dist >=  100.0) 
-  GPIO_PORTF_DATA_R = 0x02; 
+  GPIO_PORTF_DATA_R = 0x02; // turn on the red led 
 }
 
 //initialization first dummy point
@@ -36,7 +36,7 @@ void dummy_Data_Generator()
 	{
   lat2 += 0.000005 ; //increment by 0.55m
 	}
-	long2 += 0.000005;
+	long2 += 0.000005; //increment by 0.56m
   lat2 += 0.000005 ; //increment by 0.55m
 	
       Total_distance(long2,lat2);// put the values
