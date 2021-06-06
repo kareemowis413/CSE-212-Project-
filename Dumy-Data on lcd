@@ -14,4 +14,8 @@ if (position == 1) //LCD clear and line 1
 for( i = 0;ch[i]!='\0'; i++) LCD(1 ,ch[i]); // print the data on lcd
 }
 
-
+// led on if exceed 100m
+void led_on(long double dist){
+if (dist >=  100.0) 
+  GPIO_PORTF_DATA_R = 0x02; 
+}
