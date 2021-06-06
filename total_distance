@@ -1,7 +1,8 @@
+// calculate the distance
 void Total_distance(long double long2,long double lat2 ){
 
   // difference between 2 longitude
-    volatile double dlong = long2 * ( M_PI / 180.0 ) - long1 * ( M_PI / 180.0 );             
+  volatile double dlong = long2 * ( M_PI / 180.0 ) - long1 * ( M_PI / 180.0 );             
   
   // difference between 2 latitude
   volatile double dlat = lat2 * ( M_PI / 180.0 ) - lat1 * ( M_PI / 180.0 );    
@@ -12,9 +13,9 @@ void Total_distance(long double long2,long double lat2 ){
   change = change * 6371000;
   
   if (change >= 0.5){
-    dist = dist + change;
-    long1 = long2 ;      // renewing the longitude
-    lat1 =  lat2 ;       // renewing the latitude
+    dist = dist + change;  // accumlating the change in distance
+    long1 = long2 ;        // updating the longitude
+    lat1 =  lat2 ;         // updating the latitude
     }
 }
 
@@ -35,6 +36,6 @@ for(i = 0; i =< 5 ; i++)
     }
     
 LCD(1,  'm');             // print m for meters
-LCD(0, 0x89);
+LCD(0, 0x89);             // moving the cursor for updating distance
     
 }
