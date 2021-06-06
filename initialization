@@ -19,9 +19,8 @@ char Distance[] = "Distance=";
   // initialization  
 void initialize (void){
 
-/*SYSCTL_RCGCGPIO_R |= 0x23;
+SYSCTL_RCGCGPIO_R |= 0x23;
 while(!(SYSCTL_PRGPIO_R & 0x23));
-*/
 SYSCTL_RCGCGPIO_R |= 0x01;
 while((SYSCTL_PRGPIO_R & 0x01) == 0){};  
 SYSCTL_RCGCGPIO_R |= 0x02;
