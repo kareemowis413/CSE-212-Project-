@@ -17,3 +17,24 @@ void Total_distance(long double long2,long double lat2 ){
     lat1 =  lat2 ;       // renewing the latitude
     }
 }
+
+void printDist(int dist){
+int i;  
+int tmp1 = dist;
+int tmp2 = 0;
+
+
+for(i = 0; i =< 5 ; i++) 
+    {
+        int num = tmp1 / pow(10,i);                //split last digit from number
+        tmp1 = tmp1 - num * pow(10,i);
+        tmp2 += num;
+        if(tmp2){                              //ignoring zeroes at Most signfient digit
+        LCD(1, num + '0');
+        }
+    }
+    
+LCD(1,  'm');             // print m for meters
+LCD(0, 0x89);
+    
+}
