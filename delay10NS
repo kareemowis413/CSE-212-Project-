@@ -1,7 +1,27 @@
 //delay function takes an integer as a parameter and produce a time delay equal to this integer multipled by 10 nano seconds
+
 void delay10Ns(int time)
 {
     int i;
     for(i = 0; i < time; i++) 
     {}
 }
+
+
+void LCD(char rs, char D0toD7)
+    {
+        delay10Ns(600);
+        GPIO_PORTB_DATA_R = D0toD7;
+        delay10Ns(600);
+        if (!(rs))                          //LCD Command
+        {GPIO_PORTA_DATA_R &= ~0x20;}
+        else                                //LCD Data
+        {
+        GPIO_PORTA_DATA_R |= 0x20;
+        }
+        delay10Ns(600);
+        GPIO_PORTA_DATA_R |= 0x80;
+        delay10Ns(600);
+        GPIO_PORTA_DATA_R &= ~0x80;
+        delay10Ns(600);
+    }
