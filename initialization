@@ -1,0 +1,34 @@
+# include "stdint.h"
+# include "INITIALIZATION.h"
+# include "math.h"
+
+#define M_PI   3.14159265358979323846264338327950288
+void SystemInit(){}
+volatile long double dist ;
+volatile long double long1 = 30.064540;
+volatile long double lat1 = 31.278079;
+
+char Start0[] = "Press SW1 to";
+char Start1[] = "start";  
+char Stop0[] =  "Press SW2 at";
+char Stop1[] =  "any time to stop";
+char Stop2[] =  "Press SW2 again";  
+char Distance[] = "Distance=";
+
+  
+  // initialization  
+void initialize (void){
+
+/*SYSCTL_RCGCGPIO_R |= 0x23;
+while(!(SYSCTL_PRGPIO_R & 0x23));
+*/
+SYSCTL_RCGCGPIO_R |= 0x01;
+while((SYSCTL_PRGPIO_R & 0x01) == 0){};  
+SYSCTL_RCGCGPIO_R |= 0x02;
+while((SYSCTL_PRGPIO_R & 0x02) == 0){};
+SYSCTL_RCGCGPIO_R |= 0x20;
+while((SYSCTL_PRGPIO_R & 0x20) == 0){};
+
+GPIO_PORTF_LOCK_R   = 0x4C4F434B ;
+GPIO_PORTB_LOCK_R   = 0x4C4F434B ;
+GPIO_PORTA_LOCK_R   = 0x4C4F434B ;
