@@ -8,17 +8,15 @@ void delay10Ns(int time)
 }
 
 
+/*That function takes a character parameter, RS pin of LCD takes value 0 to perform LCD commands, and it is the same value of (connected to) pin 5 at port A
+  , char D0toD7 is the data pins for LCD and it is the same values of (connected to) pin 5 at port A
+  
 void LCD(char rs, char D0toD7)
     {
-        delay10Ns(600);
+       delay10Ns(600);
         GPIO_PORTB_DATA_R = D0toD7;
         delay10Ns(600);
-        if (!(rs))                          //LCD Command
         {GPIO_PORTA_DATA_R &= ~0x20;}
-        else                                //LCD Data
-        {
-        GPIO_PORTA_DATA_R |= 0x20;
-        }
         delay10Ns(600);
         GPIO_PORTA_DATA_R |= 0x80;
         delay10Ns(600);
