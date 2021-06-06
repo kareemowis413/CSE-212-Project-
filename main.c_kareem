@@ -21,13 +21,15 @@ printOnLCD(Start1, 2);
                         printOnLCD(dist);
                         
                         while((GPIO_PORTF_DATA_R & 0x10)){
-                        
+                                //Call the dummy_data function.
+                                dummy_Data_Generator();
+                        printDist(dist);
+                        led_on(dist
                         }
+                        printOnLCD(Stop2, 2);
+                        delay10Ns(1000000);
                 }
         }
 }
-
-
-//Dummy_data func.
 //LCD print func. Done
 }
