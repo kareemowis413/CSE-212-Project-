@@ -20,7 +20,7 @@ void delay10Ns(int time)
 void LCD(char rs, char D0toD7)
     {
         delay10Ns(600);
-        GPIO_PORTB_DATA_R = D0toD7;         sets Port B pins to D0toD7 values
+        GPIO_PORTB_DATA_R = D0toD7;         //sets Port B pins to D0toD7 values
         delay10Ns(600);                     //6 millisecond
         if (!(rs))                          //LCD Command
         {GPIO_PORTA_DATA_R &= ~0x20;}       //check if rs value is 0
