@@ -19,3 +19,25 @@ void led_on(long double dist){
 if (dist >=  100.0) 
   GPIO_PORTF_DATA_R = 0x02; 
 }
+
+//initialization first dummy point
+long double long2 = 30.064540;
+long double lat2 = 31.278079;
+
+// generate dummy data to print on lcd
+void dummy_Data_Generator()
+{
+	int i;
+	while (long2 < (30.064540+0.000200))
+	{
+	long2 += 0.000005;
+	}
+	while (lat2 < (31.278079+0.000400))
+	{
+  lat2 += 0.000005 ;
+	}
+	long2 += 0.000005;
+  lat2 += 0.000005 ;
+	
+      Total_distance(long2,lat2);// put the values
+}
