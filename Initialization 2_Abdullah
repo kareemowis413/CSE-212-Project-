@@ -1,4 +1,4 @@
-  // initialization
+// initialization
 void initialize_2 (void){
 // port F  
 GPIO_PORTF_CR_R     = 0x1F ; // to allow change pins f 0,1,2,3,4   
