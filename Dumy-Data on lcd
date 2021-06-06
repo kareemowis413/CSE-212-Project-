@@ -4,7 +4,6 @@ this file contains three functions
 2- led_on() to turn on led when exceed 100m
 3- dummy_Data_Generator() to generate dummy data to print on lcd
 */
-
 // print the data on lcd
 void printOnLCD(char ch[], int position){
 int i;
