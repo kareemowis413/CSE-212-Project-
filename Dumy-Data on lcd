@@ -1,5 +1,6 @@
-void printOnLCD(char ch[], int position)
-{
+
+
+void printOnLCD(char ch[], int position){
 int i;
 if (position == 1) //LCD clear and line 1
   {
@@ -20,7 +21,7 @@ if (dist >=  100.0)
   GPIO_PORTF_DATA_R = 0x02; // turn on the red led 
 }
 
-//initialization first dummy point
+//initialization for my first dummy point
 long double long2 = 30.064540;
 long double lat2 = 31.278079;
 
