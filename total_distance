@@ -40,19 +40,26 @@ LCD(1,  'm');             // print m for meters
 LCD(0, 0x89);             // moving the cursor for updating distance
     
 }
+//initialize UART
 void init_uart(void)
 {
 		SYSCTL_RCGCUART_R |= 0x01; // start clock for UART0
 		SYSCTL_RCGCGPIO_R |= 0x01; // activate port A
 	
 		GPIO_PORTA_AFSEL_R  |= 0x03 ;
-		GPIO_PORTA_AMSEL_R  |= 0x03 ;     
+		GPIO_PORTA_AMSEL_R  &= ~ 0x03 ;     
 		GPIO_PORTA_PCTL_R   |= 0x00000011 ;
 		GPIO_PORTA_DEN_R    |= 0x03 ;
 	
 		UART0_CTL_R &= ~0x00000001; // disable UART0
-		UART0_IBRD_R = 520;         // baudrate(integer part) = 80000000/(16*9600)= 520.8333333 , integer = 520
-		UART0_FBRD_R = 53;          // baudrate(fraction part) = round(0.8333333*64)= 53 
+		UART0_IBRD_R = 104;         // baudrate(integer part) = 16000000/(16*9600)= 104.1666667 , integer = 104
+		UART0_FBRD_R = 11;          // baudrate(fraction part) = round(0.1667*64)= 11
 		UART0_LCRH_R = 0x00000070;  // enable FIFO , 8-bit data    
 		UART0_CTL_R |= 0x00000001;  // enable UART0    
+}
+//Read data from UART
+char read_uart(void)
+{
+	while((UART0_FR_R&0x0010)!=0)
+			return((char)UART0_DR_R&0xFF);
 }
