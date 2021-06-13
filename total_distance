@@ -63,3 +63,56 @@ char read_uart(void)
 	while((UART0_FR_R&0x0010)!=0)
 			return((char)UART0_DR_R&0xFF);
 }
+
+int o = 0; // global variabe
+void lat_long(){
+    char gps[80];
+    int i ;
+		const char s[2] = ",";
+	  char* token;
+		int j ;
+	
+    while(1)
+    {   i = 0;
+        gps[i]=read_uart();
+        if(gps[i] == '$')
+        {   gps[++i]=read_uart();
+            if(gps[i] == 'G')
+            {gps[++i]=read_uart();
+                if(gps[i] == 'P')
+                {gps[++i]=read_uart();
+                    if(gps[i] == 'R')
+                    {gps[++i]=read_uart();
+                        if(gps[i] == 'M')
+                        {gps[++i]=read_uart();
+                            if(gps[i] == 'C')
+                            { break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    do {
+        gps[++i]=read_uart();
+
+    } while(gps[i] == '$' || i <80);
+	//char gps[80] = "$GPRMC,200751.00,A,4047.32510,N,02929.63031,E,9.879,105.80,301117,,,A*6C"; example	
+	//long double speed;
+	if ( gps[17]=='A') {
+			o = 1;
+		token = strtok(gps, s);
+		for (j = 0; j < 12; j++) {
+			token = strtok(NULL, s);
+			if (j == 2) {
+				lat2 = floor(atof(token) / 100) + (atof(token) / 100 - floor(atof(token) / 100)) / 0.6;
+			}
+			if (j == 4) {
+				long2 = floor(atof(token) / 100) + (atof(token) / 100 - floor(atof(token) / 100)) / 0.6;
+			}
+			 if (i == 6) {
+				speed = atof(token)* 0.514444;
+			} 
+		}
+	}
