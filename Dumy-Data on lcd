@@ -1,6 +1,6 @@
 /*
 this file contains three functions
-1- printOnLCD() for printing on lcd  
+1- printOnLCD() for printing data on lcd  
 2- led_on() to turn on led when exceed 100m
 3- dummy_Data_Generator() to generate dummy data to print on lcd
 */
