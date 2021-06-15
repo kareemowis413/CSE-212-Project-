@@ -20,7 +20,7 @@ char Distance[] = "Distance=";
 void initialize (void){
 
 SYSCTL_RCGCGPIO_R |= 0x23;
-while(!(SYSCTL_PRGPIO_R & 0x23));
+while((SYSCTL_PRGPIO_R & 0x23)==0);
 SYSCTL_RCGCGPIO_R |= 0x01;
 while((SYSCTL_PRGPIO_R & 0x01) == 0){};  
 SYSCTL_RCGCGPIO_R |= 0x02;
