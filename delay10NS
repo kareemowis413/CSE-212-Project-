@@ -1,47 +1,23 @@
-/*
-1-delay function
-2-function prints and perform orders to lcd
-3-LCD Commands to initalize LCD
-*/
+//LCD data and command function
+/*  That function prints and perform orders to lcd as it takes two characters parameters, char rs takes two values 0 to perform LCD commands and it is the same value of (connected to) pin 5 at port A, RS pin of LCD takes value 1 to perform LCD DATA write
+  , char D0toD7 is the data pins for LCD and it is the same values of (connected to) pin 5 at port A . */
 
-//delay function takes an integer as a parameter and produce a time delay equal to this integer multipled by 10 nanoseconds
-
-void delay10Ns(int time)
-{
-    int i;
-    for(i = 0; i < time; i++) 
-    {}
-}
-
-
-/*That function prints and perform orders to lcd as it takes two characters parameters, char rs takes two values 0 to perform LCD commands and it is the same value of (connected to) pin 5 at port A, RS pin of LCD takes value 1 to perform LCD DATA write
-  , char D0toD7 is the data pins for LCD and it is the same values of (connected to) pin 5 at port A*/
-  
 void LCD(char rs, char D0toD7)
+{
+    delay10Ns(300);
+    GPIO_PORTB_DATA_R = D0toD7;         //sets Port B pins to D0toD7 values
+    delay10Ns(300);                     //3 millisecond
+    if (!(rs))                          //LCD Command
     {
-        delay10Ns(600);
-        GPIO_PORTB_DATA_R = D0toD7;         //sets Port B pins to D0toD7 values
-        delay10Ns(600);                     //6 millisecond
-        if (!(rs))                          //LCD Command
-        {GPIO_PORTA_DATA_R &= ~0x20;}       //check if rs value is 0
-        else                                //LCD Data
-        {
+        GPIO_PORTA_DATA_R &= ~0x20;
+    }       //check if rs value is 0
+    else                                //LCD Data
+    {
         GPIO_PORTA_DATA_R |= 0x20;         //check if rs value is 0
-        }
-        delay10Ns(600);                    //6 millisecond
-        GPIO_PORTA_DATA_R |= 0x80;         //set enable to logic 1
-        delay10Ns(600);                    //6 millisecond
-        GPIO_PORTA_DATA_R &= ~0x80;        //set enable to logic 0
-        delay10Ns(600);                    //6 millisecond
     }
-
-
-/*LCD Commands to initalize LCD*/
-void initalizeLCD()
-  {
-  LCD(0,  0x3C);                                //Function set
-  LCD(0,  0x01);                                //Clear
-  LCD(0,  0x02);                                //Return Home
-  LCD(0,  0x0C);                                //0x0E//Display ON/control OFF
-  }
-  
+    delay10Ns(300);                    //3 millisecond
+    GPIO_PORTA_DATA_R |= 0x80;         //set enable to logic 1
+    delay10Ns(300);                    //3 millisecond
+    GPIO_PORTA_DATA_R &= ~0x80;        //set enable to logic 0
+    delay10Ns(300);                    //3 millisecond
+}
