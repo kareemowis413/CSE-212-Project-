@@ -1,5 +1,8 @@
 /*
-in this function we are calculating the distance depending on the haversine formula and the bearing concept 
+in this function we are calculating the distance depending on the haversine formula and the bearing concept
+we represent the earth as sphere not ellipse
+we get the straight distance with the minimum error
+no accumulation occurs in this method
 */
 
 int first = 1 ;
