@@ -48,10 +48,10 @@ void lat_long(){
 	//char gps[80] = "$GPRMC,200751.00,A,4047.32510,N,02929.63031,E,9.879,105.80,301117,,,A*6C"; example	
 	if ( gps[17]=='A') {
 			o = 1;
-		token = strtok(gps, s); // seperate the first string ("") until the comma 
+		token = strtok(gps, s); // seperate the first string ("$GPRMC") until the comma 
 		for (j = 0; j < 12; j++) {
 		
-			token = strtok(NULL, s); //continue seperating strings
+			token = strtok(NULL, s); //continue seperating strings 
 			
 			// exctracting latitude
 			if (j == 2) {
