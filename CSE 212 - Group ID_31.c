@@ -291,7 +291,7 @@ void lat_long(){
     do {
         gps[++i]=read_uart();
 
-    } while(gps[i] == '$' || i <80);
+    } while(i <79);
 
     //char gps[80] = "$GPRMC,200751.00,A,4047.32510,N,02929.63031,E,9.879,105.80,301117,,,A*6C";
     if ( gps[17]=='A') {
