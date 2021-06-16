@@ -1,40 +1,12 @@
 
-// display on LCD
-void printDist(int dist){
-int i;  
-int tmp1 = dist;
-int tmp2 = 0;
-
-for(i = 0; i =< 5 ; i++) 
-    {
-        int num = tmp1 / pow(10,i);                //split last digit from number
-        tmp1 = tmp1 - num * pow(10,i);
-        tmp2 += num;
-        if(tmp2){                              //ignoring zeroes at Most signfient digit
-        LCD(1, num + '0');
-        }
-    }
-    
-LCD(1,  'm');             // print m for meters
-LCD(0, 0x89);             // moving the cursor for updating distance
-    
-}
-
-//Read data from UART
-char read_uart(void)
-{
-	while((UART5_FR_R&0x0010)!=0)
-			return((char)UART5_DR_R&0xFF);
-}
-
 int o = 0; // global variabe
 void lat_long(){
     char gps[80];
     int i ;
-		const char s[2] = ",";
-	  char* token;
+    const char s[2] = ",";    // will be used later in seperating the address
+    char* token;
 		int j ;
-	
+	// collecting and checking the form of address i want "GPRMC"	
     while(1)
     {   i = 0;
         gps[i]=read_uart();
@@ -64,19 +36,23 @@ void lat_long(){
         }
     }
     do {
+    // collecting the rest of address
         gps[++i]=read_uart();
 
     } while(gps[i] == '$' || i <80);
 	//char gps[80] = "$GPRMC,200751.00,A,4047.32510,N,02929.63031,E,9.879,105.80,301117,,,A*6C"; example	
-	//long double speed;
 	if ( gps[17]=='A') {
 			o = 1;
-		token = strtok(gps, s);
+		token = strtok(gps, s); // seperate the first string ("") until the comma 
 		for (j = 0; j < 12; j++) {
-			token = strtok(NULL, s);
+		
+			token = strtok(NULL, s); //continue seperating strings
+			
+			// exctracting latitude
 			if (j == 2) {
 				lat2 = floor(atof(token) / 100) + (atof(token) / 100 - floor(atof(token) / 100)) / 0.6;
 			}
+			// extracting longitude
 			if (j == 4) {
 				long2 = floor(atof(token) / 100) + (atof(token) / 100 - floor(atof(token) / 100)) / 0.6;
 			}
