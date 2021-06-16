@@ -21,3 +21,13 @@ void LCD(char rs, char D0toD7)
     GPIO_PORTA_DATA_R &= ~0x80;        //set enable to logic 0
     delay10Ns(300);                    //3 millisecond
 }
+
+//LCD initalize
+/*  LCD Commands to initalize LCD  */
+void initalizeLCD()
+{
+    LCD(0, 0x3C);                                //Function set
+    LCD(0, 0x01);                                //Clear
+    LCD(0, 0x02);                                //Return Home
+    LCD(0, 0x0C);                                ///Display ON/control OFF(cursor off / Blinking off)
+}
