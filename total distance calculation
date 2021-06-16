@@ -1,0 +1,55 @@
+/*
+in this function we are calculating the distance depending on the haversine formula and the bearing concept 
+*/
+
+int first = 1 ;
+void Total_distance(long double long2, long double lat2) {
+
+    volatile long double dlong = 0;
+    volatile long double dlat = 0;
+    volatile long double change1 = 0;
+    volatile long double change2 = 0;
+
+// put the first value from gps in long1 and lat1
+    if (first==1){
+        lat1 = lat2;
+        long1 = long2;
+        first = 0;  // zero again to stop accsess for the next times  
+        long1temp = long1;
+        lat1temp = lat1;
+        }
+
+    dlong = Rad(long2) - Rad(long1temp) ; // the difference between longitude  
+    dlat = Rad(lat2) - Rad(lat1temp) ;    // the difference between latitude
+    
+    //change1 represents the change between the current point and the previous one
+    change1 = pow(sin(dlat / 2), 2) + cos(Rad(lat1temp)) * cos(Rad(lat2)) * pow(sin(dlong / 2), 2); 
+
+    dlong = Rad(long2)  - Rad(long1) ;
+    dlat = Rad(lat2)  - Rad(lat1) ;
+    
+     //change2 represents the change between the current point and the first point from the gps
+    change2 = pow(sin(dlat / 2), 2) + cos(Rad(lat1)) * cos(Rad(lat2)) * pow(sin(dlong / 2), 2); ;
+    
+     // get the angle between the hypotenuse(first and last point) and the horizontal called the bearing 
+    theta = atan2(cos(Rad(lat1)) * sin(Rad(lat2)) - sin(Rad(lat1)) * cos(Rad(lat2)) * cos(dlong), sin(dlong) * cos(Rad(lat2)));
+    theta = abs(theta) * 180/PI;
+
+    change1 = 2 * asin(sqrt(change1));
+    change1 = change1 * 6371000;
+
+    change2 = 2 * asin(sqrt(change2));
+    change2 = change2 * 6371000;
+
+	// check if the change is between 2m and 500m else ignore any extreme value	
+    if ((change1 > 2) && (change1 < 500)) {
+        long1temp = long2;
+        lat1temp = lat2;
+    }
+    
+    // check if the current distance is larger than the previous distance 
+    if ((change2 * cos(Rad(theta)) + change2 * sin(Rad(theta)) > lastdist) && (change1 > 2) && (change1 < 500)) {
+        dist = change2 * cos(Rad(theta)) + change2 * sin(Rad(theta));
+        lastdist = dist;
+    }
+}
