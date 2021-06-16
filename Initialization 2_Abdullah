@@ -1,31 +1,66 @@
-// initialization
-void initialize_2 (void){
-// port F  
-GPIO_PORTF_CR_R     = 0x1F ; // to allow change pins f 0,1,2,3,4   
-GPIO_PORTF_AMSEL_R  = 0 ; // disable analog for the bins     
-GPIO_PORTF_PCTL_R   = 0 ;// GPIO for pins
-GPIO_PORTF_AFSEL_R  = 0 ; // not allternative
-GPIO_PORTF_DIR_R    = 0x0E ; //output for leds and input for switches 
-GPIO_PORTF_DEN_R    = 0x1F ; // digital not analog
-GPIO_PORTF_PUR_R    = 0x11; //PUR for switches
-GPIO_PORTF_DATA_R   &= ~0x0E ; // initialize (turn off leds)
+# include "stdint.h"
+# include "math.h"
+# include "stdio.h"
+# include "string.h"
+# include "stdlib.h"
+# include "TM4C123GH6PM.h"
 
-// port B
-GPIO_PORTB_CR_R     = 0xFF ;    
-GPIO_PORTB_AMSEL_R  = 0 ;     
-GPIO_PORTB_PCTL_R   = 0 ;
-GPIO_PORTB_AFSEL_R  = 0 ;
-GPIO_PORTB_DIR_R    = 0xFF ; 
-GPIO_PORTB_DEN_R    = 0xFF ;
 
-// port A
-GPIO_PORTA_CR_R     = 0xE0 ; // enable change on pin rs =5,rw = 6, EN =7   
-GPIO_PORTA_AMSEL_R  = 0 ;     
-GPIO_PORTA_PCTL_R   = 0 ;
-GPIO_PORTA_AFSEL_R  = 0 ;
-GPIO_PORTA_DIR_R    = 0xE0 ; 
-GPIO_PORTA_DEN_R    = 0xE0 ;
-GPIO_PORTA_DATA_R &= ~0xE0;
+void SystemInit(){}
 
-dist = 0.0;        //Global variable
+ volatile long double lat2 = 0;
+ volatile long double long2 = 0;
+ volatile long double dist = 0;
+ volatile long double long1 = 0;
+ volatile long double lat1 = 0;
+ volatile long double long1temp = 0;
+ volatile long double lat1temp = 0;
+ volatile long double theta = 0;
+ volatile long double lastdist = 0;
+ volatile long double dist1 = 0;
+ volatile long double dist2 = 0;
+ volatile long double PI = 3.14159265358979323846264338327950288;
+
+char Start0[] = "Press SW2 to";
+char Start1[] = "start";
+char Stop0[] =  "Press SW1 at";
+char Stop1[] =  "any time to stop";
+char Stop2[] =  "Press SW1 again";
+char Distance[] = "Distance=";
+
+void init_uart(void)
+{
+    GPIO_PORTE_LOCK_R = 0x4C4F434B;
+    GPIO_PORTE_CR_R     |= 0x30;
+        GPIO_PORTE_AFSEL_R  |= 0x30 ;
+        GPIO_PORTE_AMSEL_R  &= ~ 0x30 ;
+        GPIO_PORTE_PCTL_R   |= 0x00110000 ;
+        GPIO_PORTE_DEN_R    |= 0x30 ;
+
+        UART5_CTL_R &= ~0x301;      // disable UART5
+        UART5_IBRD_R = 104;         // baudrate(integer part) = 16000000/(16*9600)= 104.1666667 , integer = 104
+        UART5_FBRD_R = 11;          // baudrate(fraction part) = round(0.1667*64)= 11
+        UART5_LCRH_R = 0x00000070;  // enable FIFO ,no parity, one stop, 8-bit data
+        UART5_CTL_R |= 0x301;       // enable UART5
+}
+
+char read_uart(void)
+{
+    while((UART5_FR_R&0x0010)!=0){}
+            return((char)UART5_DR_R&0xFF);
+}
+
+/*
+1-delay function
+2-function prints and perform orders to lcd
+3-LCD Commands to initalize LCD
+*/
+
+//delay function takes an integer as a parameter and produce a time delay equal to this integer multipled by 10 nanoseconds
+
+void delay10Ns(int time)
+{
+    int i;
+    for(i = 0; i < time; i++)
+    {}
 }
