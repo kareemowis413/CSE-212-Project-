@@ -1,3 +1,11 @@
+// led on if exceed 100 m
+void led_on(long double dist) 
+{
+    if (dist >= 100.0)
+        GPIO_PORTF_DATA_R = 0x02;
+
+}
+
 int main(){
 
 initialize(); // call the initialization finction
