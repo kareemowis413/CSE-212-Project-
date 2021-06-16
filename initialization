@@ -1,34 +1,52 @@
-# include "stdint.h"
-# include "INITIALIZATION.h"
-# include "math.h"
-
-#define M_PI   3.14159265358979323846264338327950288
-void SystemInit(){}
-volatile long double dist ;
-volatile long double long1 = 30.064540;
-volatile long double lat1 = 31.278079;
-
-char Start0[] = "Press SW1 to";
-char Start1[] = "start";  
-char Stop0[] =  "Press SW2 at";
-char Stop1[] =  "any time to stop";
-char Stop2[] =  "Press SW2 again";  
-char Distance[] = "Distance=";
-
-  
-  // initialization  
+  // initialization
 void initialize (void){
 
-SYSCTL_RCGCGPIO_R |= 0x23;
-while((SYSCTL_PRGPIO_R & 0x23)==0);
-SYSCTL_RCGCGPIO_R |= 0x01;
-while((SYSCTL_PRGPIO_R & 0x01) == 0){};  
-SYSCTL_RCGCGPIO_R |= 0x02;
+/*SYSCTL_RCGCGPIO_R |= 0x33;
+while(!(SYSCTL_PRGPIO_R & 0x33));
+*/
+
+SYSCTL_RCGCGPIO_R |= 0x01;                // activate port A
+while((SYSCTL_PRGPIO_R & 0x01) == 0){};
+SYSCTL_RCGCGPIO_R |= 0x02;                // activate port B
 while((SYSCTL_PRGPIO_R & 0x02) == 0){};
-SYSCTL_RCGCGPIO_R |= 0x20;
+SYSCTL_RCGCGPIO_R |= 0x20;                // activate port F
 while((SYSCTL_PRGPIO_R & 0x20) == 0){};
+SYSCTL_RCGCGPIO_R |= 0x10;                // activate port E
+while((SYSCTL_PRGPIO_R & 0x10) == 0){};
+SYSCTL_RCGCUART_R |= 0x20;                // start clock for UART5
+while((SYSCTL_RCGCUART_R & 0x20) != 0x20){};
 
 GPIO_PORTF_LOCK_R   = 0x4C4F434B ;
 GPIO_PORTB_LOCK_R   = 0x4C4F434B ;
 GPIO_PORTA_LOCK_R   = 0x4C4F434B ;
+
+
+
+// port F
+GPIO_PORTF_CR_R     = 0x1F ; // to allow change pins f 0,1,2,3,4
+GPIO_PORTF_AMSEL_R  = 0 ; // disable analog for the bins
+GPIO_PORTF_PCTL_R   = 0 ;// GPIO for pins
+GPIO_PORTF_AFSEL_R  = 0 ; // not allternative
+GPIO_PORTF_DIR_R    = 0x0E ; //output for leds and input for switches
+GPIO_PORTF_DEN_R    = 0x1F ; // digital not analog
+GPIO_PORTF_PUR_R    = 0x11; //PUR for switches
+GPIO_PORTF_DATA_R   &= ~0x0E ; // initialize (turn off leds)
+
+// port B
+GPIO_PORTB_CR_R     = 0xFF ;
+GPIO_PORTB_AMSEL_R  = 0 ;
+GPIO_PORTB_PCTL_R   = 0 ;
+GPIO_PORTB_AFSEL_R  = 0 ;
+GPIO_PORTB_DIR_R    = 0xFF ;
+GPIO_PORTB_DEN_R    = 0xFF ;
+
+// port A
+GPIO_PORTA_CR_R     = 0xE0 ; // enable change on pin rs =5,rw = 6, EN =7
+GPIO_PORTA_AMSEL_R  = 0 ;
+GPIO_PORTA_PCTL_R   = 0 ;
+GPIO_PORTA_AFSEL_R  = 0 ;
+GPIO_PORTA_DIR_R    = 0xE0 ;
+GPIO_PORTA_DEN_R    = 0xE0 ;
+GPIO_PORTA_DATA_R &= ~0xE0;
+
 }
