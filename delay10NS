@@ -22,6 +22,8 @@ void LCD(char rs, char D0toD7)
     delay10Ns(300);                    //3 millisecond
 }
 
+
+
 //LCD initalize
 /*  LCD Commands to initalize LCD  */
 void initalizeLCD()
@@ -30,4 +32,24 @@ void initalizeLCD()
     LCD(0, 0x01);                                //Clear
     LCD(0, 0x02);                                //Return Home
     LCD(0, 0x0C);                                ///Display ON/control OFF(cursor off / Blinking off)
+}
+
+
+
+// display a phrase on a chosen on LCD
+/*  That function prints phrase on LCD that it takes it as string array (char ch[]) in a chosen line that it takes as a parameter int position  */
+void printOnLCD(char ch[], int position)
+{
+    int i;
+    if (position == 1)              //LCD clear and line 1
+    {
+        LCD(0, 0x01);
+        LCD(0, 0x02);
+    }
+    else if (position == 2)        //LCD Data to line 2
+    {
+        LCD(0, 0xC0);                 //position takes value beginning of 1 for first line , 2 for beginning of second line, x for for current position
+    }
+
+    for (i = 0; ch[i] != '\0'; i++) LCD(1, ch[i]);
 }
