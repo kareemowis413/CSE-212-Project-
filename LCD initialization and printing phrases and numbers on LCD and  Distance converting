@@ -9,11 +9,11 @@ void LCD(char rs, char D0toD7)
     delay10Ns(300);                     //3 millisecond
     if (!(rs))                          //LCD Command
     {
-        GPIO_PORTA_DATA_R &= ~0x20;
-    }       //check if rs value is 0
-    else                                //LCD Data
+        GPIO_PORTA_DATA_R &= ~0x20;    //set rs value to 0
+    }       
+    else                               //LCD Data
     {
-        GPIO_PORTA_DATA_R |= 0x20;         //check if rs value is 0
+        GPIO_PORTA_DATA_R |= 0x20;     //sets rs value to 1
     }
     delay10Ns(300);                    //3 millisecond
     GPIO_PORTA_DATA_R |= 0x80;         //set enable to logic 1
